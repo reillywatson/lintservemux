@@ -29,4 +29,13 @@ func Foo() {
 
 	http.Serve(listener, nil) // want "http.Serve should pass an http.Handler"
 	http.Serve(listener, mux)
+
+	server := &http.Server{} // want "http.Server should set a Handler"
+	server.ListenAndServe()
+	server = &http.Server{Handler: nil} // want "http.Server should include a non-nil Handler"
+	server.ListenAndServe()
+	server = &http.Server{
+		Handler: nil, // want "http.Server should include a non-nil Handler"
+	}
+	server.ListenAndServe()
 }
