@@ -37,5 +37,15 @@ func Foo() {
 	server = &http.Server{
 		Handler: nil, // want "http.Server should include a non-nil Handler"
 	}
+	r := RouteMatcher{r: &SomeRouter{}}
+	r.r.HandleFunc("", func(http.ResponseWriter, *http.Request) {})
 	server.ListenAndServe()
 }
+
+type RouteMatcher struct {
+	r *SomeRouter
+}
+
+type SomeRouter struct{}
+
+func (s *SomeRouter) HandleFunc(path string, handler http.HandlerFunc) {}

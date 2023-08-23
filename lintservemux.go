@@ -28,6 +28,8 @@ func lintservemuxCheck(pass *analysis.Pass) (interface{}, error) {
 						if ident.Name != "http" {
 							return true
 						}
+					} else {
+						return true
 					}
 					if fnName.Sel != nil {
 						switch fnName.Sel.Name {
